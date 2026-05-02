@@ -125,6 +125,17 @@ body.hov-link #cur-dot{width:10px;height:10px;background:var(--white);mix-blend-
 .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
 .nav-burger span{display:block;width:22px;height:1.5px;background:#fff;transition:.3s}
 
+/* ── LANG TOGGLE ── */
+.lang-toggle{display:flex;align-items:center;gap:.4rem;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:100px;padding:.6rem 1.4rem;cursor:pointer;
+  font-family:var(--fp);font-size:1.2rem;font-weight:700;letter-spacing:1px;
+  transition:border-color .3s;user-select:none;margin-left:1.6rem;color:var(--g2)}
+.lang-toggle:hover{border-color:rgba(255,143,67,.4)}
+.lang-toggle .lang-opt{transition:color .2s}
+.lang-toggle .lang-opt.active{color:var(--acc)}
+.lang-toggle .lang-sep{color:rgba(255,255,255,.2);font-weight:300}
+
 /* ═══════════════════════════════════════
    COMMON
 ═══════════════════════════════════════ */
@@ -580,12 +591,17 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
 <nav id="nav">
   <a href="#hero" class="nav-logo">N<em>.</em></a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+    <li><a href="#about" data-i18n="nav.about">About</a></li>
+    <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+    <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+    <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+    <li><a href="#contact" class="nav-cta" data-i18n="nav.cta">Let's Talk</a></li>
   </ul>
+  <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+    <span class="lang-opt active" data-lang="en">EN</span>
+    <span class="lang-sep">|</span>
+    <span class="lang-opt" data-lang="vi">VI</span>
+  </button>
   <div class="nav-burger" id="burger"><span></span><span></span><span></span></div>
 </nav>
 
@@ -604,7 +620,7 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
     <div class="hero-center">
 
       <div class="hero-avail" id="hBadge">
-        <span class="avail-dot"></span>Available for new projects · 2026
+        <span class="avail-dot"></span><span data-i18n="hero.badge">Available for new projects · 2026</span>
       </div>
 
       <!-- Headline: GSAP splits MAI TRUNG only, NGHĨA animates as block -->
@@ -617,27 +633,27 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
       <div class="hero-stats-row" id="hStats">
         <div class="hs">
           <div class="hs-num"><span class="ctr" data-t="5">0</span><em>+</em></div>
-          <div class="hs-lbl">Projects Shipped</div>
+          <div class="hs-lbl" data-i18n="hero.stat1">Projects Shipped</div>
         </div>
         <div class="hs-div"></div>
         <div class="hs">
           <div class="hs-num"><span class="ctr" data-t="12">0</span><em>+</em></div>
-          <div class="hs-lbl">Team Members Led</div>
+          <div class="hs-lbl" data-i18n="hero.stat2">Team Members Led</div>
         </div>
         <div class="hs-div"></div>
         <div class="hs">
           <div class="hs-num"><span class="ctr" data-t="3">0</span><em>+</em></div>
-          <div class="hs-lbl">Years Experience</div>
+          <div class="hs-lbl" data-i18n="hero.stat3">Years Experience</div>
         </div>
       </div>
 
       <p class="hero-sub" id="hSub">
         <span class="hero-typed" id="typedEl"></span><span class="hero-cur"></span><br/>
-        Turning ideas into real products — from strategy to MVP, from backlog to launch.
+        <span data-i18n="hero.sub">Turning ideas into real products — from strategy to MVP, from backlog to launch.</span>
       </p>
       <div class="hero-btns" id="hBtns">
-        <a href="#projects" class="btn-mag btn-acc">View Projects <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="#contact" class="btn-mag btn-out"><i class="fa-regular fa-envelope"></i> Contact Now</a>
+        <a href="#projects" class="btn-mag btn-acc"><span data-i18n="hero.btn1">View Projects</span> <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#contact" class="btn-mag btn-out"><i class="fa-regular fa-envelope"></i> <span data-i18n="hero.btn2">Contact Now</span></a>
       </div>
 
     </div><!-- /hero-center -->
@@ -645,7 +661,7 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
 
   <div class="hero-float" id="hFloat">
     <div class="hf-ico"><i class="fa-solid fa-boxes-stacked"></i></div>
-    <div class="hf-tx"><strong>Diyaar Multi-App</strong><span>12-member team · Live</span></div>
+    <div class="hf-tx"><strong>Diyaar Multi-App</strong><span data-i18n="hero.float">12-member team · Live</span></div>
   </div>
   <div class="hero-scroll" id="hScroll"><span>SCROLL</span><div class="scr-ln"></div></div>
 </section>
@@ -682,20 +698,20 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
         </div>
         <div class="aimg-exp">
           <div class="ae-num">3+</div>
-          <div class="ae-lbl">Years<br/>Experience</div>
+          <div class="ae-lbl" data-i18n-html="about.exp">Years<br/>Experience</div>
         </div>
       </div>
       <div>
-        <div class="s-tag fu"><span class="s-tag-inner">About Me</span></div>
-        <div class="clip-wrap"><div class="clip-inner about-h">Engineer who<br/>manages, PM<br/><em>who codes.</em></div></div>
-        <p class="about-p fu">Coming from a technical background in Frontend, Mobile, and Full-stack development, I transitioned into PM with the advantage of understanding both business and engineering deeply. I've directly led teams of 7–12 people, shipping products for international clients from Somalia to Japan.</p>
+        <div class="s-tag fu"><span class="s-tag-inner" data-i18n="about.tag">About Me</span></div>
+        <div class="clip-wrap"><div class="clip-inner about-h" data-i18n-html="about.h">Engineer who<br/>manages, PM<br/><em>who codes.</em></div></div>
+        <p class="about-p fu" data-i18n="about.p">Coming from a technical background in Frontend, Mobile, and Full-stack development, I transitioned into PM with the advantage of understanding both business and engineering deeply. I've directly led teams of 7–12 people, shipping products for international clients from Somalia to Japan.</p>
         <div class="hl-grid">
-          <div class="hl-card fu"><i class="fa-solid fa-chart-gantt"></i><h5>Agile / Scrum</h5><p>Sprint planning, backlog grooming, CI/CD, release management</p></div>
-          <div class="hl-card fu"><i class="fa-solid fa-rocket"></i><h5>Full-cycle Delivery</h5><p>From kickoff → architecture → deploy → App Store release</p></div>
-          <div class="hl-card fu"><i class="fa-solid fa-earth-asia"></i><h5>International Client</h5><p>Communicating &amp; delivering for clients in Somalia and Japan in English</p></div>
-          <div class="hl-card fu"><i class="fa-solid fa-code"></i><h5>Technical PM</h5><p>React Native, Flutter, Laravel, Docker — personally reviewing team code</p></div>
+          <div class="hl-card fu"><i class="fa-solid fa-chart-gantt"></i><h5 data-i18n="about.h1">Agile / Scrum</h5><p data-i18n="about.p1">Sprint planning, backlog grooming, CI/CD, release management</p></div>
+          <div class="hl-card fu"><i class="fa-solid fa-rocket"></i><h5 data-i18n="about.h2">Full-cycle Delivery</h5><p data-i18n="about.p2">From kickoff → architecture → deploy → App Store release</p></div>
+          <div class="hl-card fu"><i class="fa-solid fa-earth-asia"></i><h5 data-i18n="about.h3">International Client</h5><p data-i18n="about.p3">Communicating &amp; delivering for clients in Somalia and Japan in English</p></div>
+          <div class="hl-card fu"><i class="fa-solid fa-code"></i><h5 data-i18n="about.h4">Technical PM</h5><p data-i18n="about.p4">React Native, Flutter, Laravel, Docker — personally reviewing team code</p></div>
         </div>
-        <a href="#contact" class="btn-mag btn-acc fu">Let's Connect <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#contact" class="btn-mag btn-acc fu"><span data-i18n="about.btn">Let's Connect</span> <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
   </div>
@@ -706,10 +722,10 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
   <div class="wrap">
     <div class="sk-top">
       <div>
-        <div class="s-tag fu"><span class="s-tag-inner">My Expertise</span></div>
-        <div class="clip-wrap"><div class="clip-inner sk-h">My Skill<br/>Set</div></div>
+        <div class="s-tag fu"><span class="s-tag-inner" data-i18n="skills.tag">My Expertise</span></div>
+        <div class="clip-wrap"><div class="clip-inner sk-h" data-i18n-html="skills.h">My Skill<br/>Set</div></div>
       </div>
-      <p class="sk-desc fu">Combining PM methodology with technical skills to lead teams in building quality products on time.</p>
+      <p class="sk-desc fu" data-i18n="skills.desc">Combining PM methodology with technical skills to lead teams in building quality products on time.</p>
     </div>
     <div class="sk-grid">
       <div class="sk-card fu"><span class="sk-ico"><i class="fa-brands fa-jira"></i></span><div class="sk-nm">Jira / Notion</div><div class="sk-lb">Project Tracking & Docs</div><div class="sk-bar"><div class="sk-fill" data-w="95"></div></div></div>
@@ -729,10 +745,10 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
   <div class="wrap">
     <div class="proj-top">
       <div>
-        <div class="s-tag fu"><span class="s-tag-inner">Portfolio</span></div>
-        <div class="clip-wrap"><div class="clip-inner proj-h">Featured<br/>Projects</div></div>
+        <div class="s-tag fu"><span class="s-tag-inner" data-i18n="projects.tag">Portfolio</span></div>
+        <div class="clip-wrap"><div class="clip-inner proj-h" data-i18n-html="projects.h">Featured<br/>Projects</div></div>
       </div>
-      <a href="#contact" class="proj-all fu">Work With Me <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#contact" class="proj-all fu"><span data-i18n="projects.cta">Work With Me</span> <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <div class="proj-grid">
       <!-- PAV / Panasonic — wide -->
@@ -740,8 +756,8 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
         <div class="pc-thumb tb1"><div class="pc-emoji">🏭</div><div class="pc-ov"><div class="pc-arr"><i class="fa-solid fa-arrow-up-right"></i></div></div></div>
         <div class="pc-body">
           <div class="pc-tags"><span class="pc-tag">Android</span><span class="pc-tag">Kotlin</span><span class="pc-tag">RFID</span><span class="pc-tag">Enterprise</span></div>
-          <h3 class="pc-nm">PAV — Warehouse Management App (Panasonic)</h3>
-          <p class="pc-ds">Native Android (Kotlin) RFID warehouse management app for Panasonic's factory floor. Built Chainway C5 hardware integration, UART scanning protocol, and real-time inventory sync in a 15-member team — from development to factory go-live and handover. Reduced warehouse scan time by 20–30% vs. manual process.</p>
+          <h3 class="pc-nm" data-i18n="proj.pav.t">PAV — Warehouse Management App (Panasonic)</h3>
+          <p class="pc-ds" data-i18n="proj.pav.d">Native Android (Kotlin) RFID warehouse management app for Panasonic's factory floor. Built Chainway C5 hardware integration, UART scanning protocol, and real-time inventory sync in a 15-member team — from development to factory go-live and handover. Reduced warehouse scan time by 20–30% vs. manual process.</p>
           <div class="pc-meta"><div class="pc-mi"><i class="fa-solid fa-users"></i>15 members</div><div class="pc-mi"><i class="fa-solid fa-bolt"></i>Scan time ↓20–30%</div><div class="pc-mi"><i class="fa-solid fa-circle-check"></i>Delivered</div></div>
         </div>
       </div>
@@ -750,8 +766,8 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
         <div class="pc-thumb tb2"><div class="pc-emoji">🌍</div><div class="pc-ov"><div class="pc-arr"><i class="fa-solid fa-arrow-up-right"></i></div></div></div>
         <div class="pc-body">
           <div class="pc-tags"><span class="pc-tag">PM</span><span class="pc-tag">Mobile</span><span class="pc-tag">International</span><span class="pc-tag" style="background:rgba(255,143,67,.15);color:#ff8f43;border:1px solid rgba(255,143,67,.3)">📄 Case Study</span></div>
-          <h3 class="pc-nm">Diyaar Multi-App (Somalia)</h3>
-          <p class="pc-ds">A 5-module super-app for the Somali market (Food, Delivery, Grocery, Pharmacy, Laundry). PM &amp; SE for a 12-person team (8 VN + 4 Somalia) — shipped to App Store &amp; Google Play in 4 months. Client awarded a $1,000 performance bonus upon delivery.</p>
+          <h3 class="pc-nm" data-i18n="proj.diyaar.t">Diyaar Multi-App (Somalia)</h3>
+          <p class="pc-ds" data-i18n="proj.diyaar.d">A 5-module super-app for the Somali market (Food, Delivery, Grocery, Pharmacy, Laundry). PM &amp; SE for a 12-person team (8 VN + 4 Somalia) — shipped to App Store &amp; Google Play in 4 months. Client awarded a $1,000 performance bonus upon delivery.</p>
           <div class="pc-meta"><div class="pc-mi"><i class="fa-solid fa-users"></i>12 members</div><div class="pc-mi"><i class="fa-solid fa-layer-group"></i>5 modules</div><div class="pc-mi"><i class="fa-solid fa-trophy"></i>Client bonus +$1K</div><div class="pc-mi"><i class="fa-solid fa-circle-check"></i>Live · 4 months</div></div>
         </div>
       </div>
@@ -760,8 +776,8 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
         <div class="pc-thumb tb4"><div class="pc-emoji">🈶</div><div class="pc-ov"><div class="pc-arr"><i class="fa-solid fa-arrow-up-right"></i></div></div></div>
         <div class="pc-body">
           <div class="pc-tags"><span class="pc-tag">PM</span><span class="pc-tag">EdTech</span><span class="pc-tag">AI</span></div>
-          <h3 class="pc-nm">Chinese Learning App (SUN CHINESE)</h3>
-          <p class="pc-ds">An AI-powered Chinese learning platform. Tech Lead and PM for a 7-person team — chose React Native + Directus CMS stack, managed sprints, daily code reviews, delivered with 12-month warranty.</p>
+          <h3 class="pc-nm" data-i18n="proj.chinese.t">Chinese Learning App (SUN CHINESE)</h3>
+          <p class="pc-ds" data-i18n="proj.chinese.d">An AI-powered Chinese learning platform. Tech Lead and PM for a 7-person team — chose React Native + Directus CMS stack, managed sprints, daily code reviews, delivered with 12-month warranty.</p>
           <div class="pc-meta"><div class="pc-mi"><i class="fa-solid fa-users"></i>7 members</div><div class="pc-mi"><i class="fa-solid fa-mobile"></i>iOS &amp; Android</div></div>
         </div>
       </div>
@@ -770,8 +786,8 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
         <div class="pc-thumb tb3"><div class="pc-emoji">📈</div><div class="pc-ov"><div class="pc-arr"><i class="fa-solid fa-arrow-up-right"></i></div></div></div>
         <div class="pc-body">
           <div class="pc-tags"><span class="pc-tag">Frontend</span><span class="pc-tag">FinTech</span><span class="pc-tag">Compliance</span><span class="pc-tag">B2B</span></div>
-          <h3 class="pc-nm">Finra Web Portal — Financial Compliance System</h3>
-          <p class="pc-ds">An internal financial web system for FINRA compliance reporting in a 15-person team. Developed frontend with TypeScript + GraphQL, designed data schema in Directus CMS, and coordinated Agile sprints with backend &amp; design.</p>
+          <h3 class="pc-nm" data-i18n="proj.finra.t">Finra Web Portal — Financial Compliance System</h3>
+          <p class="pc-ds" data-i18n="proj.finra.d">An internal financial web system for FINRA compliance reporting in a 15-person team. Developed frontend with TypeScript + GraphQL, designed data schema in Directus CMS, and coordinated Agile sprints with backend &amp; design.</p>
           <div class="pc-meta"><div class="pc-mi"><i class="fa-solid fa-users"></i>15 members</div></div>
         </div>
       </div>
@@ -780,8 +796,8 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
         <div class="pc-thumb tb5"><div class="pc-emoji">🔌</div><div class="pc-ov"><div class="pc-arr"><i class="fa-solid fa-arrow-up-right"></i></div></div></div>
         <div class="pc-body">
           <div class="pc-tags"><span class="pc-tag">Plugin</span><span class="pc-tag">Tool</span><span class="pc-tag">AI</span></div>
-          <h3 class="pc-nm">Bolt Assistant — Figma × Jira Plugin</h3>
-          <p class="pc-ds">Solo project: a Figma plugin integrating Jira API, Unsplash, and OpenAI, enabling designers to create/track tasks directly in Figma. Adopted by 104 users at BoltX — cut the Design–Engineering feedback loop from 2 days down to half a day.</p>
+          <h3 class="pc-nm" data-i18n="proj.bolt.t">Bolt Assistant — Figma × Jira Plugin</h3>
+          <p class="pc-ds" data-i18n="proj.bolt.d">Solo project: a Figma plugin integrating Jira API, Unsplash, and OpenAI, enabling designers to create/track tasks directly in Figma. Adopted by 104 users at BoltX — cut the Design–Engineering feedback loop from 2 days down to half a day.</p>
           <div class="pc-meta"><div class="pc-mi"><i class="fa-solid fa-user"></i>Solo</div><div class="pc-mi"><i class="fa-solid fa-users"></i>104 users</div><div class="pc-mi"><i class="fa-solid fa-clock"></i>2 days → 4 hours</div></div>
         </div>
       </div>
@@ -790,8 +806,8 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
         <div class="pc-thumb" style="background:linear-gradient(135deg,#0a1a2e,#0d3b6e)"><div class="pc-emoji">💡</div><div class="pc-ov"><div class="pc-arr"><i class="fa-solid fa-arrow-up-right"></i></div></div></div>
         <div class="pc-body">
           <div class="pc-tags"><span class="pc-tag">PM</span><span class="pc-tag">MedTech</span><span class="pc-tag">Hardware</span><span class="pc-tag">CDSL</span></div>
-          <h3 class="pc-nm">Jaundice Screening Device — Medical Hardware Upgrade</h3>
-          <p class="pc-ds">PM for the redesign and hardware upgrade of a jaundice screening device (đèn soi vàng da) at CDSL. Coordinated cross-functional work between hardware engineers and software team to integrate new features and improve diagnostic accuracy — the upgraded product successfully won a government procurement tender.</p>
+          <h3 class="pc-nm" data-i18n="proj.jaundice.t">Jaundice Screening Device — Medical Hardware Upgrade</h3>
+          <p class="pc-ds" data-i18n="proj.jaundice.d">PM for the redesign and hardware upgrade of a jaundice screening device (đèn soi vàng da) at CDSL. Coordinated cross-functional work between hardware engineers and software team to integrate new features and improve diagnostic accuracy — the upgraded product successfully won a government procurement tender.</p>
           <div class="pc-meta"><div class="pc-mi"><i class="fa-solid fa-trophy"></i>Won gov. tender</div><div class="pc-mi"><i class="fa-solid fa-microchip"></i>Hardware + Software</div><div class="pc-mi"><i class="fa-solid fa-circle-check"></i>CDSL · 2025</div></div>
         </div>
       </div>
@@ -802,54 +818,54 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
 <!-- ═══════════════ EXPERIENCE ═══════════════ -->
 <section id="experience" class="sg">
   <div class="wrap">
-    <div class="s-tag fu" style="margin-bottom:6rem"><span class="s-tag-inner">Experience & Education</span></div>
+    <div class="s-tag fu" style="margin-bottom:6rem"><span class="s-tag-inner" data-i18n="exp.tag">Experience & Education</span></div>
     <div class="exp-grid">
       <div>
-        <h3 class="exp-col-ttl fu"><i class="fa-solid fa-briefcase"></i>Work History</h3>
+        <h3 class="exp-col-ttl fu"><i class="fa-solid fa-briefcase"></i><span data-i18n="exp.work">Work History</span></h3>
         <div class="tl">
           <div class="tl-item fu">
             <div class="tl-dot"></div>
             <div class="tl-period">8/2025 — Present</div>
-            <div class="tl-role">Android Developer (Kotlin)</div>
+            <div class="tl-role" data-i18n="exp.legotech.role">Android Developer (Kotlin)</div>
             <div class="tl-where">LEGOTECH Joint Stock Company · Hanoi</div>
-            <p class="tl-desc">Developed a native Android (Kotlin) RFID warehouse management app for Panasonic's factory in a 15-member cross-functional team. Built Chainway C5 device integration, UART communication layer, and RFID scanning modules. Contributed to the Inventix multi-tenant architecture refactor.</p>
+            <p class="tl-desc" data-i18n="exp.legotech.desc">Developed a native Android (Kotlin) RFID warehouse management app for Panasonic's factory in a 15-member cross-functional team. Built Chainway C5 device integration, UART communication layer, and RFID scanning modules. Contributed to the Inventix multi-tenant architecture refactor.</p>
           </div>
           <div class="tl-item fu">
             <div class="tl-dot"></div>
             <div class="tl-period">3/2025 — Present <span style="font-size:0.78em;opacity:0.6;font-weight:400">(Full-time → Part-time 20h/wk from 8/2025)</span></div>
-            <div class="tl-role">Project Manager &amp; Software Engineer</div>
+            <div class="tl-role" data-i18n="exp.cdsl.role">Project Manager &amp; Software Engineer</div>
             <div class="tl-where">CDSL Software Production · Remote</div>
-            <p class="tl-desc">PM &amp; SE for the full lifecycle of Diyaar Multi-App &amp; Chinese Learning App with teams of 7–12. Communicated directly with Somali clients in English, designed system architecture, managed sprints, set up CI/CD, and mentored junior developers. Transitioned to part-time remote (20h/week) from 8/2025 while joining LEGOTECH full-time.</p>
+            <p class="tl-desc" data-i18n="exp.cdsl.desc">PM &amp; SE for the full lifecycle of Diyaar Multi-App &amp; Chinese Learning App with teams of 7–12. Communicated directly with Somali clients in English, designed system architecture, managed sprints, set up CI/CD, and mentored junior developers. Transitioned to part-time remote (20h/week) from 8/2025 while joining LEGOTECH full-time.</p>
           </div>
           <div class="tl-item fu">
             <div class="tl-dot"></div>
             <div class="tl-period">10/2024 — 3/2025</div>
-            <div class="tl-role">Frontend Developer</div>
+            <div class="tl-role" data-i18n="exp.boltx.role">Frontend Developer</div>
             <div class="tl-where">BoltX · Hanoi</div>
-            <p class="tl-desc">Developed the Finra Web Portal (financial compliance system). Solo-built a Figma Plugin integrating Jira + OpenAI — adopted by the entire design team, shortening the Design–Engineering feedback loop.</p>
+            <p class="tl-desc" data-i18n="exp.boltx.desc">Developed the Finra Web Portal (financial compliance system). Solo-built a Figma Plugin integrating Jira + OpenAI — adopted by the entire design team, shortening the Design–Engineering feedback loop.</p>
           </div>
           <div class="tl-item fu">
             <div class="tl-dot"></div>
             <div class="tl-period">6/2023 — 1/2025</div>
-            <div class="tl-role">Project Manager · Events & Production</div>
+            <div class="tl-role" data-i18n="exp.wonderme.role">Project Manager · Events & Production</div>
             <div class="tl-where">Công ty TNHH Quản lý Truyền thông và Sự kiện Wonderme · Hanoi</div>
-            <p class="tl-desc">PM for multiple large-scale events on a project basis — including Graduation Ceremonies 2023 &amp; 2024 and an Antenna Processing Workshop. Managed backstage operations, backline setup, stage coordination, vendor logistics, and on-site team execution under tight live-event deadlines.</p>
+            <p class="tl-desc" data-i18n="exp.wonderme.desc">PM for multiple large-scale events on a project basis — including Graduation Ceremonies 2023 &amp; 2024 and an Antenna Processing Workshop. Managed backstage operations, backline setup, stage coordination, vendor logistics, and on-site team execution under tight live-event deadlines.</p>
           </div>
           <div class="tl-item fu">
             <div class="tl-dot"></div>
             <div class="tl-period">8/2023 — 12/2023</div>
-            <div class="tl-role">Frontend Developer Intern</div>
+            <div class="tl-role" data-i18n="exp.careerempower.role">Frontend Developer Intern</div>
             <div class="tl-where">CareerEmpower · Hanoi</div>
-            <p class="tl-desc">Interned as a Frontend Developer, contributing to real product features and gaining hands-on experience with modern web technologies in a professional team environment.</p>
+            <p class="tl-desc" data-i18n="exp.careerempower.desc">Interned as a Frontend Developer, contributing to real product features and gaining hands-on experience with modern web technologies in a professional team environment.</p>
           </div>
         </div>
       </div>
       <div>
-        <h3 class="exp-col-ttl fu"><i class="fa-solid fa-graduation-cap"></i>Education & Certs</h3>
+        <h3 class="exp-col-ttl fu"><i class="fa-solid fa-graduation-cap"></i><span data-i18n="exp.edu">Education & Certs</span></h3>
         <div class="tl">
-          <div class="tl-item fu"><div class="tl-dot"></div><div class="tl-period">9/2021 — 9/2026</div><div class="tl-role">B.Sc. Information Technology</div><div class="tl-where">Hanoi University of Science and Technology</div><p class="tl-desc">Major in Information Technology. Concurrent with real-world work experience from Year 2 onwards.</p></div>
-          <div class="tl-item fu"><div class="tl-dot"></div><div class="tl-period">9/2021 — 5/2024</div><div class="tl-role">FullStack Developer</div><div class="tl-where">Aptech Computer Education · Hanoi</div><p class="tl-desc">Graduated with Good standing. Strong technical foundation in Frontend, Backend, and Mobile development.</p></div>
-          <div class="tl-item fu"><div class="tl-dot"></div><div class="tl-period">Coursera</div><div class="tl-role">Google Project Management Certificate</div><div class="tl-where">+ Agile with Atlassian Jira · Notion for PM · Software PM</div><p class="tl-desc">PM certification suite covering Agile methodology, risk management, stakeholder communication, and Jira workflow.</p></div>
+          <div class="tl-item fu"><div class="tl-dot"></div><div class="tl-period">9/2021 — 9/2026</div><div class="tl-role" data-i18n="edu.hust.role">B.Sc. Information Technology</div><div class="tl-where">Hanoi University of Science and Technology</div><p class="tl-desc" data-i18n="edu.hust.desc">Major in Information Technology. Concurrent with real-world work experience from Year 2 onwards.</p></div>
+          <div class="tl-item fu"><div class="tl-dot"></div><div class="tl-period">9/2021 — 5/2024</div><div class="tl-role" data-i18n="edu.aptech.role">FullStack Developer</div><div class="tl-where">Aptech Computer Education · Hanoi</div><p class="tl-desc" data-i18n="edu.aptech.desc">Graduated with Good standing. Strong technical foundation in Frontend, Backend, and Mobile development.</p></div>
+          <div class="tl-item fu"><div class="tl-dot"></div><div class="tl-period">Coursera</div><div class="tl-role">Google Project Management Certificate</div><div class="tl-where">+ Agile with Atlassian Jira · Notion for PM · Software PM</div><p class="tl-desc" data-i18n="edu.cert.desc">PM certification suite covering Agile methodology, risk management, stakeholder communication, and Jira workflow.</p></div>
         </div>
       </div>
     </div>
@@ -860,15 +876,15 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
 <section class="sg">
   <div class="wrap">
     <div class="test-hd">
-      <div class="s-tag fu" style="justify-content:center"><span class="s-tag-inner">Testimonials</span></div>
-      <div class="clip-wrap"><div class="clip-inner test-h">What Colleagues<br/>&amp; <em>Partners</em> Say</div></div>
+      <div class="s-tag fu" style="justify-content:center"><span class="s-tag-inner" data-i18n="test.tag">Testimonials</span></div>
+      <div class="clip-wrap"><div class="clip-inner test-h" data-i18n-html="test.h">What Colleagues<br/>&amp; <em>Partners</em> Say</div></div>
     </div>
     <div class="swiper-test-wrap fu">
       <div class="swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><div class="test-card"><div class="test-q">"</div><p class="test-txt">Nghia isn't just a PM — he's someone who asks the right questions at the right time. Our product launched on deadline and exceeded targets by 30% thanks to the way he led the team.</p><div class="test-au"><div class="test-av">T</div><div><div class="test-an">Tran Minh Tu</div><div class="test-ar">CTO · AutoReport AI</div></div></div></div></div>
-          <div class="swiper-slide"><div class="test-card"><div class="test-q">"</div><p class="test-txt">Nghia's ability to break down complex requirements into clear tasks is impressive. The dev team rarely got blocked because the PRDs were always thorough and detailed.</p><div class="test-au"><div class="test-av">L</div><div><div class="test-an">Le Thi Hoa</div><div class="test-ar">Lead Developer · SaleSync</div></div></div></div></div>
-          <div class="swiper-slide"><div class="test-card"><div class="test-q">"</div><p class="test-txt">Working with Nghia was a truly professional experience. He understands both business and tech, helping us make quick decisions and avoid many risks along the way.</p><div class="test-au"><div class="test-av">P</div><div><div class="test-an">Pham Quoc Viet</div><div class="test-ar">CEO · OpsFlow Enterprise</div></div></div></div></div>
+          <div class="swiper-slide"><div class="test-card"><div class="test-q">"</div><p class="test-txt" data-i18n="test.1">Nghia isn't just a PM — he's someone who asks the right questions at the right time. Our product launched on deadline and exceeded targets by 30% thanks to the way he led the team.</p><div class="test-au"><div class="test-av">T</div><div><div class="test-an">Tran Minh Tu</div><div class="test-ar">CTO · AutoReport AI</div></div></div></div></div>
+          <div class="swiper-slide"><div class="test-card"><div class="test-q">"</div><p class="test-txt" data-i18n="test.2">Nghia's ability to break down complex requirements into clear tasks is impressive. The dev team rarely got blocked because the PRDs were always thorough and detailed.</p><div class="test-au"><div class="test-av">L</div><div><div class="test-an">Le Thi Hoa</div><div class="test-ar">Lead Developer · SaleSync</div></div></div></div></div>
+          <div class="swiper-slide"><div class="test-card"><div class="test-q">"</div><p class="test-txt" data-i18n="test.3">Working with Nghia was a truly professional experience. He understands both business and tech, helping us make quick decisions and avoid many risks along the way.</p><div class="test-au"><div class="test-av">P</div><div><div class="test-an">Pham Quoc Viet</div><div class="test-ar">CEO · OpsFlow Enterprise</div></div></div></div></div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
@@ -882,9 +898,9 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
 
     <!-- Centered header -->
     <div class="contact-hd">
-      <div class="s-tag fu"><span class="s-tag-inner">Contact</span></div>
-      <div class="clip-wrap"><div class="clip-inner ct-h">Hãy cùng <em>build</em> together.</div></div>
-      <p class="ct-sub fu">Bạn có idea sản phẩm cần hiện thực hóa? Cần PM dày dặn kinh nghiệm cho dự án SaaS tiếp theo? Hãy kết nối!</p>
+      <div class="s-tag fu"><span class="s-tag-inner" data-i18n="contact.tag">Contact</span></div>
+      <div class="clip-wrap"><div class="clip-inner ct-h" data-i18n-html="contact.h">Hãy cùng <em>build</em> together.</div></div>
+      <p class="ct-sub fu" data-i18n="contact.sub">Bạn có idea sản phẩm cần hiện thực hóa? Cần PM dày dặn kinh nghiệm cho dự án SaaS tiếp theo? Hãy kết nối!</p>
     </div>
 
     <!-- 2 equal columns -->
@@ -907,12 +923,12 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
       <div class="fu">
         <form class="c-form" id="cForm">
           <div class="f-row">
-            <input type="text" class="fin" placeholder="Họ và tên" required/>
-            <input type="email" class="fin" placeholder="Email của bạn" required/>
+            <input type="text" class="fin" data-i18n-ph="contact.name" placeholder="Họ và tên" required/>
+            <input type="email" class="fin" data-i18n-ph="contact.email" placeholder="Email của bạn" required/>
           </div>
-          <input type="text" class="fin" placeholder="Chủ đề / Loại dự án"/>
-          <textarea class="fta" placeholder="Kể tôi nghe về ý tưởng hoặc dự án của bạn..."></textarea>
-          <button type="submit" class="f-btn btn-mag" id="submitBtn">Gửi tin nhắn <i class="fa-solid fa-paper-plane"></i></button>
+          <input type="text" class="fin" data-i18n-ph="contact.subject" placeholder="Chủ đề / Loại dự án"/>
+          <textarea class="fta" data-i18n-ph="contact.msg" placeholder="Kể tôi nghe về ý tưởng hoặc dự án của bạn..."></textarea>
+          <button type="submit" class="f-btn btn-mag" id="submitBtn" data-i18n-html="contact.send">Gửi tin nhắn <i class="fa-solid fa-paper-plane"></i></button>
         </form>
       </div>
     </div>
@@ -924,8 +940,8 @@ footer{padding:3.5rem 0;position:relative;z-index:2;
 <footer>
   <div class="wrap">
     <div class="foot-in">
-      <p class="foot-copy">© 2025 <em>Mai Trung Nghĩa</em> · Built with passion &amp; GSAP</p>
-      <a href="#hero" class="foot-top">Back to top <i class="fa-solid fa-arrow-up"></i></a>
+      <p class="foot-copy" data-i18n-html="footer.copy">© 2025 <em>Mai Trung Nghĩa</em> · Built with passion &amp; GSAP</p>
+      <a href="#hero" class="foot-top"><span data-i18n="footer.top">Back to top</span> <i class="fa-solid fa-arrow-up"></i></a>
     </div>
   </div>
 </footer>
@@ -1025,14 +1041,14 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 /* ════════════════════════════════════════
    TYPED TEXT
 ════════════════════════════════════════ */
-const roles=['Android Developer.','Project Manager.','MVP Builder.','Product Thinker.'];
+let rolesArr=['Android Developer.','Project Manager.','MVP Builder.','Product Thinker.'];
 let ri=0,ci=0,isDel=false;
 const tEl=document.getElementById('typedEl');
 function typeIt(){
-  const cur=roles[ri];
+  const cur=rolesArr[ri];
   tEl.textContent=isDel?cur.slice(0,--ci):cur.slice(0,++ci);
   if(!isDel&&ci===cur.length)setTimeout(()=>isDel=true,1800);
-  else if(isDel&&ci===0){isDel=false;ri=(ri+1)%roles.length;}
+  else if(isDel&&ci===0){isDel=false;ri=(ri+1)%rolesArr.length;}
   setTimeout(typeIt,isDel?50:100);
 }
 
@@ -1338,6 +1354,204 @@ document.getElementById('cForm').addEventListener('submit',function(e){
 document.querySelector('.foot-top')?.addEventListener('click',e=>{
   e.preventDefault();
   gsap.to(window,{duration:1.4,scrollTo:0,ease:'power3.inOut'});
+});
+
+/* ════════════════════════════════════════
+   I18N — BILINGUAL EN / VI
+════════════════════════════════════════ */
+const I18N = {
+  en: {
+    // nav
+    'nav.about':'About','nav.skills':'Skills','nav.projects':'Projects',
+    'nav.experience':'Experience','nav.cta':"Let's Talk",
+    // hero
+    'hero.badge':'Available for new projects · 2026',
+    'hero.stat1':'Projects Shipped','hero.stat2':'Team Members Led','hero.stat3':'Years Experience',
+    'hero.sub':'Turning ideas into real products — from strategy to MVP, from backlog to launch.',
+    'hero.btn1':'View Projects','hero.btn2':'Contact Now',
+    'hero.float':'12-member team · Live',
+    'hero.typed':['Android Developer.','Project Manager.','MVP Builder.','Product Thinker.'],
+    // about
+    'about.tag':'About Me',
+    'about.h':'Engineer who<br/>manages, PM<br/><em>who codes.</em>',
+    'about.p':"Coming from a technical background in Frontend, Mobile, and Full-stack development, I transitioned into PM with the advantage of understanding both business and engineering deeply. I've directly led teams of 7–12 people, shipping products for international clients from Somalia to Japan.",
+    'about.h1':'Agile / Scrum','about.p1':'Sprint planning, backlog grooming, CI/CD, release management',
+    'about.h2':'Full-cycle Delivery','about.p2':'From kickoff → architecture → deploy → App Store release',
+    'about.h3':'International Client','about.p3':'Communicating & delivering for clients in Somalia and Japan in English',
+    'about.h4':'Technical PM','about.p4':'React Native, Flutter, Laravel, Docker — personally reviewing team code',
+    'about.btn':"Let's Connect",
+    'about.exp':'Years<br/>Experience',
+    // skills
+    'skills.tag':'My Expertise','skills.h':'My Skill<br/>Set',
+    'skills.desc':'Combining PM methodology with technical skills to lead teams in building quality products on time.',
+    // projects
+    'projects.tag':'Portfolio','projects.h':'Featured<br/>Projects','projects.cta':'Work With Me',
+    // project cards
+    'proj.pav.t':'PAV — Warehouse Management App (Panasonic)',
+    'proj.pav.d':"Native Android (Kotlin) RFID warehouse management app for Panasonic's factory floor. Built Chainway C5 hardware integration, UART scanning protocol, and real-time inventory sync in a 15-member team — from development to factory go-live and handover. Reduced warehouse scan time by 20–30% vs. manual process.",
+    'proj.diyaar.t':'Diyaar Multi-App (Somalia)',
+    'proj.diyaar.d':'A 5-module super-app for the Somali market (Food, Delivery, Grocery, Pharmacy, Laundry). PM & SE for a 12-person team (8 VN + 4 Somalia) — shipped to App Store & Google Play in 4 months. Client awarded a $1,000 performance bonus upon delivery.',
+    'proj.chinese.t':'Chinese Learning App (SUN CHINESE)',
+    'proj.chinese.d':'An AI-powered Chinese learning platform. Tech Lead and PM for a 7-person team — chose React Native + Directus CMS stack, managed sprints, daily code reviews, delivered with 12-month warranty.',
+    'proj.finra.t':'Finra Web Portal — Financial Compliance System',
+    'proj.finra.d':'An internal financial web system for FINRA compliance reporting in a 15-person team. Developed frontend with TypeScript + GraphQL, designed data schema in Directus CMS, and coordinated Agile sprints with backend & design.',
+    'proj.bolt.t':'Bolt Assistant — Figma × Jira Plugin',
+    'proj.bolt.d':'Solo project: a Figma plugin integrating Jira API, Unsplash, and OpenAI, enabling designers to create/track tasks directly in Figma. Adopted by 104 users at BoltX — cut the Design–Engineering feedback loop from 2 days down to half a day.',
+    'proj.jaundice.t':'Jaundice Screening Device — Medical Hardware Upgrade',
+    'proj.jaundice.d':'PM for the redesign and hardware upgrade of a jaundice screening device (đèn soi vàng da) at CDSL. Coordinated cross-functional work between hardware engineers and software team to integrate new features and improve diagnostic accuracy — the upgraded product successfully won a government procurement tender.',
+    // experience
+    'exp.tag':'Experience & Education','exp.work':'Work History','exp.edu':'Education & Certs',
+    'exp.legotech.role':'Android Developer (Kotlin)',
+    'exp.legotech.desc':"Developed a native Android (Kotlin) RFID warehouse management app for Panasonic's factory in a 15-member cross-functional team. Built Chainway C5 device integration, UART communication layer, and RFID scanning modules. Contributed to the Inventix multi-tenant architecture refactor.",
+    'exp.cdsl.role':'Project Manager & Software Engineer',
+    'exp.cdsl.desc':'PM & SE for the full lifecycle of Diyaar Multi-App & Chinese Learning App with teams of 7–12. Communicated directly with Somali clients in English, designed system architecture, managed sprints, set up CI/CD, and mentored junior developers. Transitioned to part-time remote (20h/week) from 8/2025 while joining LEGOTECH full-time.',
+    'exp.boltx.role':'Frontend Developer',
+    'exp.boltx.desc':'Developed the Finra Web Portal (financial compliance system). Solo-built a Figma Plugin integrating Jira + OpenAI — adopted by the entire design team, shortening the Design–Engineering feedback loop.',
+    'exp.wonderme.role':'Project Manager · Events & Production',
+    'exp.wonderme.desc':'PM for multiple large-scale events on a project basis — including Graduation Ceremonies 2023 & 2024 and an Antenna Processing Workshop. Managed backstage operations, backline setup, stage coordination, vendor logistics, and on-site team execution under tight live-event deadlines.',
+    'exp.careerempower.role':'Frontend Developer Intern',
+    'exp.careerempower.desc':'Interned as a Frontend Developer, contributing to real product features and gaining hands-on experience with modern web technologies in a professional team environment.',
+    'edu.hust.role':'B.Sc. Information Technology',
+    'edu.hust.desc':'Major in Information Technology. Concurrent with real-world work experience from Year 2 onwards.',
+    'edu.aptech.role':'FullStack Developer',
+    'edu.aptech.desc':'Graduated with Good standing. Strong technical foundation in Frontend, Backend, and Mobile development.',
+    'edu.cert.desc':'PM certification suite covering Agile methodology, risk management, stakeholder communication, and Jira workflow.',
+    // testimonials
+    'test.tag':'Testimonials',
+    'test.h':'What Colleagues<br/>&amp; <em>Partners</em> Say',
+    'test.1':"Nghia isn't just a PM — he's someone who asks the right questions at the right time. Our product launched on deadline and exceeded targets by 30% thanks to the way he led the team.",
+    'test.2':"Nghia's ability to break down complex requirements into clear tasks is impressive. The dev team rarely got blocked because the PRDs were always thorough and detailed.",
+    'test.3':'Working with Nghia was a truly professional experience. He understands both business and tech, helping us make quick decisions and avoid many risks along the way.',
+    // contact
+    'contact.tag':'Contact',
+    'contact.h':'Let\'s <em>build</em> together.',
+    'contact.sub':'Have a product idea that needs to be realized? Need an experienced PM for your next SaaS project? Let\'s connect!',
+    'contact.name':'Full name','contact.email':'Your email',
+    'contact.subject':'Subject / Project type',
+    'contact.msg':'Tell me about your idea or project...',
+    'contact.send':'Send Message <i class="fa-solid fa-paper-plane"></i>',
+    // footer
+    'footer.copy':'© 2025 <em>Mai Trung Nghĩa</em> · Built with passion &amp; GSAP',
+    'footer.top':'Back to top',
+  },
+  vi: {
+    // nav
+    'nav.about':'Giới thiệu','nav.skills':'Kỹ năng','nav.projects':'Dự án',
+    'nav.experience':'Kinh nghiệm','nav.cta':'Liên hệ',
+    // hero
+    'hero.badge':'Sẵn sàng cho dự án mới · 2026',
+    'hero.stat1':'Dự án đã Ship','hero.stat2':'Thành viên được dẫn dắt','hero.stat3':'Năm kinh nghiệm',
+    'hero.sub':'Biến ý tưởng thành sản phẩm thực — từ chiến lược đến MVP, từ backlog đến launch.',
+    'hero.btn1':'Xem Dự án','hero.btn2':'Liên hệ ngay',
+    'hero.float':'Nhóm 12 người · Đang live',
+    'hero.typed':['Android Developer.','Quản lý Dự án.','MVP Builder.','Product Thinker.'],
+    // about
+    'about.tag':'Về tôi',
+    'about.h':'Kỹ sư biết<br/>quản lý, PM<br/><em>biết code.</em>',
+    'about.p':'Xuất phát từ nền tảng kỹ thuật Frontend, Mobile và Full-stack, tôi chuyển sang PM với lợi thế hiểu sâu cả nghiệp vụ lẫn kỹ thuật. Tôi đã trực tiếp dẫn dắt các nhóm 7–12 người, ship sản phẩm cho khách hàng quốc tế từ Somalia đến Nhật Bản.',
+    'about.h1':'Agile / Scrum','about.p1':'Sprint planning, backlog grooming, CI/CD, quản lý release',
+    'about.h2':'Delivery toàn chu trình','about.p2':'Từ kickoff → kiến trúc → deploy → phát hành App Store',
+    'about.h3':'Khách hàng quốc tế','about.p3':'Giao tiếp & bàn giao sản phẩm cho khách hàng Somalia và Nhật bằng tiếng Anh',
+    'about.h4':'Technical PM','about.p4':'React Native, Flutter, Laravel, Docker — trực tiếp review code của team',
+    'about.btn':'Kết nối ngay',
+    'about.exp':'Năm<br/>Kinh nghiệm',
+    // skills
+    'skills.tag':'Chuyên môn','skills.h':'Bộ kỹ<br/>năng',
+    'skills.desc':'Kết hợp phương pháp PM với kỹ năng kỹ thuật để dẫn dắt team xây dựng sản phẩm chất lượng đúng tiến độ.',
+    // projects
+    'projects.tag':'Portfolio','projects.h':'Dự án<br/>nổi bật','projects.cta':'Hợp tác cùng tôi',
+    // project cards
+    'proj.pav.t':'PAV — Ứng dụng Quản lý Kho Panasonic',
+    'proj.pav.d':'App quản lý kho RFID Android (Kotlin) cho nhà máy Panasonic. Tích hợp phần cứng Chainway C5, giao thức UART, đồng bộ hàng hóa thời gian thực trong nhóm 15 người — từ phát triển đến go-live và bàn giao. Giảm 20–30% thời gian quét hàng so với thủ công.',
+    'proj.diyaar.t':'Diyaar Multi-App (Somalia)',
+    'proj.diyaar.d':'Super-app 5 module cho thị trường Somalia (Đồ ăn, Giao hàng, Tạp hóa, Nhà thuốc, Giặt là). PM & SE cho nhóm 12 người (8 VN + 4 Somalia) — ship lên App Store & Google Play trong 4 tháng. Khách hàng thưởng thêm $1,000 khi bàn giao.',
+    'proj.chinese.t':'Ứng dụng Học Tiếng Trung (SUN CHINESE)',
+    'proj.chinese.d':'Nền tảng học tiếng Trung tích hợp AI. Tech Lead và PM cho nhóm 7 người — lựa chọn stack React Native + Directus CMS, quản lý sprint, review code hàng ngày, bàn giao kèm bảo hành 12 tháng.',
+    'proj.finra.t':'Finra Web Portal — Hệ thống Tuân thủ Tài chính',
+    'proj.finra.d':'Hệ thống web nội bộ báo cáo tuân thủ FINRA cho nhóm 15 người. Phát triển frontend TypeScript + GraphQL, thiết kế data schema trên Directus CMS, điều phối sprint Agile với backend & design.',
+    'proj.bolt.t':'Bolt Assistant — Plugin Figma × Jira',
+    'proj.bolt.d':'Dự án solo: plugin Figma tích hợp Jira API, Unsplash và OpenAI, cho phép designer tạo/theo dõi task ngay trong Figma. Được 104 người dùng tại BoltX adopt — rút ngắn vòng phản hồi Design–Engineering từ 2 ngày xuống nửa ngày.',
+    'proj.jaundice.t':'Thiết bị Sàng lọc Vàng da — Nâng cấp Phần cứng Y tế',
+    'proj.jaundice.d':'PM cho việc tái thiết kế và nâng cấp phần cứng thiết bị đèn soi vàng da tại CDSL. Phối hợp giữa nhóm kỹ sư phần cứng và phần mềm để tích hợp tính năng mới, cải thiện độ chính xác chẩn đoán — sản phẩm sau nâng cấp trúng thầu mua sắm của nhà nước.',
+    // experience
+    'exp.tag':'Kinh nghiệm & Học vấn','exp.work':'Lịch sử làm việc','exp.edu':'Học vấn & Chứng chỉ',
+    'exp.legotech.role':'Android Developer (Kotlin)',
+    'exp.legotech.desc':'Phát triển app quản lý kho RFID Android (Kotlin) cho nhà máy Panasonic trong nhóm 15 người. Tích hợp thiết bị Chainway C5, lớp giao tiếp UART, module quét RFID. Đóng góp vào refactor kiến trúc multi-tenant của Inventix.',
+    'exp.cdsl.role':'Quản lý Dự án & Kỹ sư Phần mềm',
+    'exp.cdsl.desc':'PM & SE toàn chu trình cho Diyaar Multi-App & App Học Tiếng Trung với nhóm 7–12 người. Giao tiếp trực tiếp với khách hàng Somalia bằng tiếng Anh, thiết kế kiến trúc hệ thống, quản lý sprint, thiết lập CI/CD, mentoring junior developer. Chuyển sang part-time remote (20h/tuần) từ 8/2025 khi tham gia LEGOTECH full-time.',
+    'exp.boltx.role':'Frontend Developer',
+    'exp.boltx.desc':'Phát triển Finra Web Portal (hệ thống tuân thủ tài chính). Tự làm Plugin Figma tích hợp Jira + OpenAI — được cả team design adopt, rút ngắn vòng phản hồi Design–Engineering.',
+    'exp.wonderme.role':'Quản lý Dự án · Sự kiện & Sản xuất',
+    'exp.wonderme.desc':'PM theo dự án cho nhiều sự kiện quy mô lớn — bao gồm Lễ tốt nghiệp 2023 & 2024 và Workshop Xử lý Anten. Quản lý hậu đài, thiết bị sân khấu, phối hợp nhà cung cấp, điều hành team on-site dưới áp lực deadline.',
+    'exp.careerempower.role':'Frontend Developer Intern',
+    'exp.careerempower.desc':'Thực tập Frontend Developer, đóng góp vào tính năng sản phẩm thực tế và tích lũy kinh nghiệm với các công nghệ web hiện đại trong môi trường chuyên nghiệp.',
+    'edu.hust.role':'Cử nhân Công nghệ Thông tin',
+    'edu.hust.desc':'Chuyên ngành Công nghệ Thông tin. Song song với kinh nghiệm làm việc thực tế từ năm 2.',
+    'edu.aptech.role':'Lập trình viên FullStack',
+    'edu.aptech.desc':'Tốt nghiệp loại Giỏi. Nền tảng kỹ thuật vững chắc về Frontend, Backend và Mobile.',
+    'edu.cert.desc':'Bộ chứng chỉ PM bao gồm Agile methodology, quản lý rủi ro, giao tiếp với stakeholder và quy trình Jira.',
+    // testimonials
+    'test.tag':'Nhận xét',
+    'test.h':'Đồng nghiệp &<br/><em>Đối tác</em> nói gì',
+    'test.1':'Nghia không chỉ là một PM — anh ấy luôn đặt đúng câu hỏi vào đúng thời điểm. Sản phẩm của chúng tôi ra mắt đúng deadline và vượt 30% mục tiêu nhờ cách anh ấy dẫn dắt team.',
+    'test.2':'Khả năng phân tích yêu cầu phức tạp thành task rõ ràng của Nghia rất ấn tượng. Dev team hầu như không bao giờ bị blocked vì PRD luôn chi tiết và đầy đủ.',
+    'test.3':'Làm việc với Nghia là một trải nghiệm thực sự chuyên nghiệp. Anh ấy hiểu cả business lẫn tech, giúp chúng tôi đưa ra quyết định nhanh và tránh được nhiều rủi ro.',
+    // contact
+    'contact.tag':'Liên hệ',
+    'contact.h':'Hãy cùng <em>build</em> together.',
+    'contact.sub':'Bạn có idea sản phẩm cần hiện thực hóa? Cần PM dày dặn kinh nghiệm cho dự án SaaS tiếp theo? Hãy kết nối!',
+    'contact.name':'Họ và tên','contact.email':'Email của bạn',
+    'contact.subject':'Chủ đề / Loại dự án',
+    'contact.msg':'Kể tôi nghe về ý tưởng hoặc dự án của bạn...',
+    'contact.send':'Gửi tin nhắn <i class="fa-solid fa-paper-plane"></i>',
+    // footer
+    'footer.copy':'© 2025 <em>Mai Trung Nghĩa</em> · Làm bằng đam mê &amp; GSAP',
+    'footer.top':'Về đầu trang',
+  }
+};
+
+let currentLang = localStorage.getItem('lang') || 'en';
+
+function applyLang(lang) {
+  const t = I18N[lang];
+  // textContent elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (t[k] !== undefined) el.textContent = t[k];
+  });
+  // innerHTML elements (contain <br>, <em>, etc.)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const k = el.dataset.i18nHtml;
+    if (t[k] !== undefined) el.innerHTML = t[k];
+  });
+  // placeholder attributes
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.dataset.i18nPh;
+    if (t[k] !== undefined) el.placeholder = t[k];
+  });
+  // typed roles — reset animation from beginning
+  rolesArr = t['hero.typed'];
+  ri = 0; ci = 0; isDel = false;
+  if (tEl) tEl.textContent = '';
+  // toggle button visual state
+  document.querySelectorAll('.lang-opt').forEach(opt => {
+    opt.classList.toggle('active', opt.dataset.lang === lang);
+  });
+  // html lang attribute
+  document.documentElement.lang = lang;
+  // persist
+  localStorage.setItem('lang', lang);
+  currentLang = lang;
+}
+
+// Lang toggle click
+document.getElementById('langToggle').addEventListener('click', () => {
+  applyLang(currentLang === 'en' ? 'vi' : 'en');
+});
+
+// Init on load (after a small delay to let page settle)
+document.addEventListener('DOMContentLoaded', () => {
+  applyLang(currentLang);
 });
 </script>
 </body>
