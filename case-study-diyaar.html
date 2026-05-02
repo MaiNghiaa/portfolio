@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Diyaar Multi-App — PM Case Study · Mai Trung Nghĩa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,700;1,800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root {
+  --bg:   #080808;
+  --bg2:  #0d0d0d;
+  --card: #111111;
+  --acc:  #ff8f43;
+  --acc2: #ffb87a;
+  --white:#ffffff;
+  --g1:   #555555;
+  --g2:   #999999;
+  --fp: 'Inter', sans-serif;
+  --fs: 'Plus Jakarta Sans', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:10px;scroll-behavior:smooth}
+body{font-family:var(--fp);background:var(--bg);color:var(--white);overflow-x:hidden;cursor:none}
+a{text-decoration:none;color:inherit}
+
+/* CURSOR */
+#cur-dot,#cur-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%)}
+#cur-dot{width:6px;height:6px;background:var(--acc)}
+#cur-ring{width:40px;height:40px;border:1.5px solid rgba(255,143,67,.45);transition:width .25s,height .25s,border-color .25s}
+body.hov #cur-ring{width:56px;height:56px;border-color:var(--acc)}
+
+/* GRID BG */
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:100px 100px}
+
+/* SCROLL PROGRESS */
+#scrollBar{position:fixed;top:0;left:0;height:2px;width:0%;
+  background:linear-gradient(90deg,#ff8f43,#ffb87a);z-index:999998;
+  box-shadow:0 0 10px rgba(255,143,67,0.5);transition:width 0.05s linear;pointer-events:none}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;width:100%;z-index:1000;
+  padding:2.4rem 5rem;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(8,8,8,.88);backdrop-filter:blur(28px);
+  border-bottom:1px solid rgba(255,255,255,.05)}
+.nav-logo{font-family:var(--fs);font-size:2.2rem;font-weight:800;letter-spacing:-1px}
+.nav-logo em{color:var(--acc);font-style:normal}
+.nav-back{display:inline-flex;align-items:center;gap:1rem;font-size:1.4rem;
+  font-weight:600;color:var(--g2);transition:color .3s}
+.nav-back:hover{color:var(--acc)}
+.nav-back i{transition:transform .3s}
+.nav-back:hover i{transform:translateX(-4px)}
+
+/* LAYOUT */
+.wrap{max-width:820px;margin:0 auto;padding:0 4rem}
+.fu{opacity:0;transform:translateY(40px)}
+
+/* HERO */
+.cs-hero{padding:16rem 0 8rem;position:relative;z-index:2}
+.cs-tag{display:inline-flex;align-items:center;gap:1rem;
+  font-size:1.1rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;
+  color:var(--acc);margin-bottom:2.8rem}
+.cs-tag::before{content:'';width:24px;height:1px;background:var(--acc)}
+.cs-title{font-family:var(--fs);font-size:clamp(4rem,6vw,6.5rem);
+  font-weight:800;line-height:1;letter-spacing:-3px;margin-bottom:2rem}
+.cs-title em{color:var(--acc);font-style:normal}
+.cs-sub{font-size:1.9rem;color:var(--g2);line-height:1.7;max-width:700px;margin-bottom:5rem}
+
+/* STATS ROW */
+.cs-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+  border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;margin-bottom:8rem}
+.cs-stat{background:rgba(255,255,255,.03);padding:2.8rem 2.4rem;text-align:center}
+.cs-stat:hover{background:rgba(255,143,67,.07)}
+.stat-num{font-family:var(--fs);font-size:3.6rem;font-weight:800;
+  color:var(--acc);line-height:1;margin-bottom:.6rem}
+.stat-lbl{font-size:1.1rem;color:var(--g2);text-transform:uppercase;letter-spacing:1.5px}
+
+/* DIVIDER */
+.cs-div{height:1px;background:rgba(255,255,255,.07);margin:7rem 0}
+
+/* SECTION LABEL */
+.cs-sec-label{display:flex;align-items:center;gap:1.4rem;
+  font-size:1.05rem;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;
+  color:var(--acc);margin-bottom:2.4rem}
+.cs-sec-label span{display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border:1px solid var(--acc);border-radius:50%;
+  font-size:.9rem;font-family:var(--fs)}
+
+/* HEADINGS */
+.cs-h2{font-family:var(--fs);font-size:clamp(2.8rem,3.5vw,4rem);
+  font-weight:800;letter-spacing:-1.5px;line-height:1.15;margin-bottom:2rem}
+.cs-p{font-size:1.65rem;color:var(--g2);line-height:1.9;margin-bottom:2.4rem}
+.cs-p strong{color:var(--white);font-weight:600}
+.cs-p em{color:var(--acc);font-style:normal;font-weight:600}
+
+/* CALLOUT BOX */
+.callout{background:rgba(255,143,67,.07);border:1px solid rgba(255,143,67,.2);
+  border-left:3px solid var(--acc);border-radius:0 14px 14px 0;
+  padding:2.4rem 2.8rem;margin:3.2rem 0}
+.callout-label{font-size:1rem;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--acc);margin-bottom:1rem}
+.callout p{font-size:1.55rem;color:rgba(255,255,255,.85);line-height:1.8}
+
+/* DECISION CARD */
+.decision-grid{display:flex;flex-direction:column;gap:2rem;margin:3.2rem 0}
+.d-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;padding:3rem;transition:border-color .3s}
+.d-card:hover{border-color:rgba(255,143,67,.25)}
+.d-card-head{display:flex;align-items:center;gap:1.6rem;margin-bottom:1.6rem}
+.d-num{width:36px;height:36px;border-radius:10px;background:var(--acc);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fs);font-size:1.4rem;font-weight:800;color:var(--bg);flex-shrink:0}
+.d-title{font-family:var(--fs);font-size:1.8rem;font-weight:700;letter-spacing:-.5px}
+.d-body{font-size:1.55rem;color:var(--g2);line-height:1.85}
+.d-body strong{color:var(--white);font-weight:600}
+.d-body em{color:var(--acc);font-style:normal}
+
+/* OPTIONS TABLE */
+.options-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin:2rem 0}
+.opt{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;padding:2rem 1.8rem}
+.opt.chosen{background:rgba(255,143,67,.08);border-color:rgba(255,143,67,.3)}
+.opt-label{font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:.8rem}
+.opt.chosen .opt-label{color:var(--acc)}
+.opt-label:not(.chosen .opt-label){color:var(--g1)}
+.opt p{font-size:1.4rem;color:var(--g2);line-height:1.65}
+.opt.chosen p{color:rgba(255,255,255,.8)}
+
+/* TIMELINE VISUAL */
+.phase-flow{display:flex;align-items:stretch;gap:0;margin:3rem 0;border-radius:16px;overflow:hidden}
+.phase{flex:1;padding:2.4rem 2.2rem;background:rgba(255,255,255,.03);
+  border-right:1px solid rgba(255,255,255,.06);position:relative}
+.phase:last-child{border-right:none}
+.phase.highlight{background:rgba(255,143,67,.08);border-color:rgba(255,143,67,.2)}
+.phase-num{font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--g1);margin-bottom:.8rem}
+.phase.highlight .phase-num{color:var(--acc)}
+.phase-name{font-family:var(--fs);font-size:1.5rem;font-weight:700;margin-bottom:.6rem}
+.phase-desc{font-size:1.3rem;color:var(--g2);line-height:1.6}
+
+/* RESULT CHIPS */
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;margin:3rem 0}
+.r-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:2.6rem 2.4rem;display:flex;align-items:flex-start;gap:1.6rem}
+.r-icon{width:42px;height:42px;border-radius:12px;background:rgba(255,143,67,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;color:var(--acc);flex-shrink:0}
+.r-text strong{display:block;font-size:1.55rem;font-weight:700;margin-bottom:.4rem}
+.r-text span{font-size:1.35rem;color:var(--g2);line-height:1.6}
+
+/* LESSONS */
+.lessons-list{display:flex;flex-direction:column;gap:1.6rem;margin:2.4rem 0}
+.lesson{display:flex;gap:1.8rem;align-items:flex-start}
+.lesson-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);
+  flex-shrink:0;margin-top:.7rem}
+.lesson p{font-size:1.6rem;color:var(--g2);line-height:1.85}
+.lesson p strong{color:var(--white);font-weight:600}
+
+/* FOOTER CTA */
+.cs-footer{padding:10rem 0 8rem;text-align:center;position:relative;z-index:2}
+.cs-footer-title{font-family:var(--fs);font-size:clamp(3rem,4vw,4.8rem);
+  font-weight:800;letter-spacing:-2px;margin-bottom:1.6rem}
+.cs-footer-sub{font-size:1.7rem;color:var(--g2);margin-bottom:4rem}
+.btn-acc{display:inline-flex;align-items:center;gap:1rem;
+  padding:1.7rem 4rem;border-radius:100px;background:var(--acc);
+  color:var(--bg);font-size:1.5rem;font-weight:700;transition:all .3s}
+.btn-acc:hover{box-shadow:0 20px 50px rgba(255,143,67,.35);transform:translateY(-2px)}
+.btn-out{display:inline-flex;align-items:center;gap:1rem;
+  padding:1.7rem 4rem;border-radius:100px;border:1px solid rgba(255,255,255,.18);
+  color:var(--white);font-size:1.5rem;font-weight:700;transition:all .3s;margin-left:1.6rem}
+.btn-out:hover{border-color:var(--acc);color:var(--acc)}
+
+/* READING PROGRESS */
+.reading-progress{position:fixed;left:0;top:0;width:3px;height:0%;
+  background:var(--acc);z-index:9999;transition:height .05s linear}
+
+@media(max-width:768px){
+  .wrap{padding:0 2.4rem}
+  #nav{padding:2rem 2.4rem}
+  .cs-stats{grid-template-columns:repeat(2,1fr)}
+  .options-row{grid-template-columns:1fr}
+  .results-grid{grid-template-columns:1fr}
+  .phase-flow{flex-direction:column}
+  .phase{border-right:none;border-bottom:1px solid rgba(255,255,255,.06)}
+  .btn-out{margin-left:0;margin-top:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+<div class="grid-bg"></div>
+<div id="scrollBar"></div>
+<div class="reading-progress" id="readingBar"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">M<em>.</em>Nghĩa</a>
+  <a href="index.html#projects" class="nav-back">
+    <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="cs-hero">
+  <div class="wrap">
+    <div class="cs-tag fu">PM Case Study</div>
+    <h1 class="cs-title fu">Diyaar<br/><em>Multi-App</em></h1>
+    <p class="cs-sub fu">How we shipped a 5-module super-app for the Somali market in 4 months — navigating a server crisis, mid-project scope change, and 3 AM client calls.</p>
+
+    <div class="cs-stats fu">
+      <div class="cs-stat">
+        <div class="stat-num">4mo</div>
+        <div class="stat-lbl">Delivered</div>
+      </div>
+      <div class="cs-stat">
+        <div class="stat-num">12</div>
+        <div class="stat-lbl">Team size</div>
+      </div>
+      <div class="cs-stat">
+        <div class="stat-num">5</div>
+        <div class="stat-lbl">Modules</div>
+      </div>
+      <div class="cs-stat">
+        <div class="stat-num">+$1K</div>
+        <div class="stat-lbl">Client bonus</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BACKGROUND -->
+<section style="position:relative;z-index:2;padding-bottom:2rem">
+  <div class="wrap">
+    <div class="fu">
+      <div class="cs-sec-label"><span>01</span> Background</div>
+      <h2 class="cs-h2">A super-app for a market we'd never visited</h2>
+      <p class="cs-p">A Somali entrepreneur approached CDSL with a clear vision: one app to unify everyday services — food delivery, grocery ordering, pharmacy, and ride delivery — for users in Somalia. No incumbent super-app. No existing platform to migrate from. Just a contract, a deadline, and a team of 12 people split between Hanoi and Mogadishu.</p>
+      <p class="cs-p">My role was <strong>PM and Software Engineer</strong>. I owned the architecture decisions, sprint cadence, client communication (in English), and CI/CD setup. The original estimate was <strong>5 months</strong> to full delivery and App Store/Google Play launch.</p>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- PROBLEM -->
+    <div class="fu">
+      <div class="cs-sec-label"><span>02</span> The Problem</div>
+      <h2 class="cs-h2">The users had daily services. They just couldn't access them reliably.</h2>
+      <p class="cs-p">The Somali market had individual service providers — restaurants, pharmacies, grocery stores — but <strong>no unified digital layer</strong>. Customers had no consistent way to discover, order, or pay for services on a single platform. The client wanted to own that layer.</p>
+      <p class="cs-p">From a PM perspective, the challenge wasn't just building the app. It was <em>deciding what to build first</em>, in what order, for a market we couldn't directly test with — while keeping a 12-person cross-cultural team aligned and a client 4 time zones away satisfied.</p>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- CONSTRAINTS -->
+    <div class="fu">
+      <div class="cs-sec-label"><span>03</span> Constraints</div>
+      <h2 class="cs-h2">Fixed deadline. Scope uncertainty. 4-hour time gap.</h2>
+
+      <div class="callout">
+        <div class="callout-label">The real constraints</div>
+        <p><strong>Hard deadline</strong> — App Store + Google Play launch was tied to a client marketing campaign. Slipping wasn't an option. &nbsp;·&nbsp; <strong>Cross-timezone team</strong> — Vietnam (UTC+7) and Somalia (UTC+3) meant a 4-hour gap, with useful overlap mostly in late evenings. &nbsp;·&nbsp; <strong>No direct user access</strong> — we couldn't user-test with actual Somali users during the build phase. &nbsp;·&nbsp; <strong>Language gap</strong> — all stakeholder communication was in English, requiring extra care in specs and async documentation.</p>
+      </div>
+
+      <p class="cs-p">These weren't problems to solve once — they were the operating environment for 4 months. Every decision had to account for all of them simultaneously.</p>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- DECISIONS -->
+    <div class="fu">
+      <div class="cs-sec-label"><span>04</span> Key Decisions & Trade-offs</div>
+      <h2 class="cs-h2">Three moments where the project could have gone wrong</h2>
+
+      <div class="decision-grid">
+
+        <!-- DECISION 1 -->
+        <div class="d-card fu">
+          <div class="d-card-head">
+            <div class="d-num">1</div>
+            <div class="d-title">The deleted server — absorb the loss or push the deadline?</div>
+          </div>
+          <div class="d-body">
+            <p>Midway through the build, the client deleted our test server — they assumed it was idle and unused. It wasn't. We had <strong>CI/CD pipelines, deployment configs, and OPS setup</strong> running on it. All of it was gone overnight.</p>
+            <br/>
+            <p>Three options were on the table:</p>
+          </div>
+
+          <div class="options-row">
+            <div class="opt">
+              <div class="opt-label">Option A</div>
+              <p>Push the deadline by 2–3 weeks. Buy time to rebuild carefully.</p>
+            </div>
+            <div class="opt chosen">
+              <div class="opt-label">✓ Chosen</div>
+              <p>Rebuild infra in parallel with feature dev. OT to close the gap. Keep the deadline.</p>
+            </div>
+            <div class="opt">
+              <div class="opt-label">Option C</div>
+              <p>Escalate to management and renegotiate contract terms.</p>
+            </div>
+          </div>
+
+          <div class="d-body">
+            <p><strong>Why we chose Option B:</strong> The infra rebuild, while painful, was a parallel workstream — it didn't block feature development. The team was senior enough to execute both tracks simultaneously. Pushing the deadline risked the client's marketing campaign and would have damaged trust early in the relationship. We held a team meeting, <em>decided together</em>, and committed to the OT.</p>
+            <br/>
+            <p><strong>What I learned:</strong> A PM's job in a crisis isn't to find the perfect solution — it's to give the team a clear decision fast, so they can stop worrying about the decision and start executing.</p>
+          </div>
+        </div>
+
+        <!-- DECISION 2 -->
+        <div class="d-card fu">
+          <div class="d-card-head">
+            <div class="d-num">2</div>
+            <div class="d-title">Scope creep in month 2 — add it, delay it, or phase it?</div>
+          </div>
+          <div class="d-body">
+            <p>At the start of month 2, the client requested adding a <strong>Laundry module</strong> to the original 4-module scope. At the same time, they announced they wanted to begin marketing <em>before</em> full app launch — meaning some modules needed to be live and stable earlier than planned.</p>
+            <br/>
+            <p>Adding Laundry to the current sprint would have stretched the team thin. Refusing it risked the client relationship. We spent <strong>one full day</strong> in an internal planning session before bringing a proposal to the client.</p>
+          </div>
+
+          <div class="phase-flow">
+            <div class="phase highlight">
+              <div class="phase-num">Phase 1 · Launch</div>
+              <div class="phase-name">Food, Delivery, Grocery, Pharmacy</div>
+              <div class="phase-desc">4 core modules → marketing campaign starts</div>
+            </div>
+            <div class="phase">
+              <div class="phase-num">Phase 2 · Follow</div>
+              <div class="phase-name">Laundry Module</div>
+              <div class="phase-desc">New scope → added post-launch without blocking Phase 1</div>
+            </div>
+          </div>
+
+          <div class="d-body">
+            <p><strong>The outcome:</strong> Client agreed. Marketing launched on schedule with the 4-module app. Laundry was added as a follow-on scope. Neither track blocked the other.</p>
+            <br/>
+            <p><strong>What I learned:</strong> <em>Scope changes mid-project aren't the enemy — unmanaged scope changes are.</em> A structured proposal that showed the client exactly what they gain (earlier marketing, cleaner launch) made it easy for them to say yes to our phased approach.</p>
+          </div>
+        </div>
+
+        <!-- DECISION 3 -->
+        <div class="d-card fu">
+          <div class="d-card-head">
+            <div class="d-num">3</div>
+            <div class="d-title">3 AM meetings — how do you manage a client who can't sync in your timezone?</div>
+          </div>
+          <div class="d-body">
+            <p>The 4-hour timezone gap between Vietnam and Somalia sounds small. In practice, it meant our overlap window was <strong>late evening VN time</strong> — and some daily syncs landed at <em>3–4 AM</em> for us. This wasn't sustainable for a 4-month run.</p>
+            <br/>
+            <p>Instead of grinding through daily late-night calls, we shifted to an <strong>async-first process</strong>:</p>
+          </div>
+
+          <div class="callout">
+            <div class="callout-label">How we solved the timezone problem</div>
+            <p><strong>Written agenda sent the night before</strong> every sync — so the Somalia side came prepared and we didn't waste time on context-setting at midnight. &nbsp;·&nbsp; <strong>Decision log in Notion</strong> — every key decision was written down immediately after a call, eliminating "I thought we agreed on X" misunderstandings. &nbsp;·&nbsp; <strong>Sync calls reserved for blockers only</strong> — routine updates moved to async. This alone cut weekly late-night calls from 5 to 2.</p>
+          </div>
+
+          <div class="d-body">
+            <p><strong>What I learned:</strong> Remote international PM requires thinking about communication as a system, not just a schedule. The goal isn't to be always available — it's to make sure nothing critical goes unresolved for more than 24 hours.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- RESULTS -->
+    <div class="fu">
+      <div class="cs-sec-label"><span>05</span> Results</div>
+      <h2 class="cs-h2">Shipped in 4 months. 1 month under estimate.</h2>
+
+      <div class="results-grid">
+        <div class="r-card">
+          <div class="r-icon"><i class="fa-solid fa-rocket"></i></div>
+          <div class="r-text">
+            <strong>Live on App Store &amp; Google Play</strong>
+            <span>Full launch on both platforms, on schedule. Phase 1 (4 modules) ready for client marketing campaign.</span>
+          </div>
+        </div>
+        <div class="r-card">
+          <div class="r-icon"><i class="fa-solid fa-trophy"></i></div>
+          <div class="r-text">
+            <strong>Client awarded +$1,000 performance bonus</strong>
+            <span>Unsolicited bonus from the client at delivery — a direct signal of satisfaction with quality and execution.</span>
+          </div>
+        </div>
+        <div class="r-card">
+          <div class="r-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="r-text">
+            <strong>Delivered 1 month early</strong>
+            <span>Original estimate: 5 months. Actual delivery: 4 months — despite mid-project server loss and scope addition.</span>
+          </div>
+        </div>
+        <div class="r-card">
+          <div class="r-icon"><i class="fa-solid fa-handshake"></i></div>
+          <div class="r-text">
+            <strong>Full handover completed</strong>
+            <span>Documentation, codebase, CI/CD, and OPS fully handed over. No post-delivery critical issues reported.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- LESSONS -->
+    <div class="fu">
+      <div class="cs-sec-label"><span>06</span> What I'd Do Differently</div>
+      <h2 class="cs-h2">Three things I now do on every project</h2>
+
+      <div class="lessons-list">
+        <div class="lesson">
+          <div class="lesson-dot"></div>
+          <p><strong>Establish infrastructure ownership on day one.</strong> The server deletion happened because there was no clear protocol for who could modify the environment. I now document environment ownership and change-approval rules in the kickoff doc — not as a formality, but as a genuine safeguard.</p>
+        </div>
+        <div class="lesson">
+          <div class="lesson-dot"></div>
+          <p><strong>Treat scope change requests as a product opportunity, not a threat.</strong> The Laundry module addition could have derailed the project. Instead, it became an opportunity to propose a phased launch that actually helped the client's marketing timeline. When clients ask for more, the first question should be: "How does this create value, and what's the right sequencing?"</p>
+        </div>
+        <div class="lesson">
+          <div class="lesson-dot"></div>
+          <p><strong>Design the communication system before the first meeting.</strong> Async-first isn't about being unavailable — it's about making information flow without requiring everyone to be online at the same time. A shared decision log and pre-written agendas cut confusion more than any number of additional calls.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-div"></div>
+
+    <!-- REFLECTION -->
+    <div class="fu">
+      <div class="callout">
+        <div class="callout-label">Reflection</div>
+        <p>This project taught me that shipping software internationally isn't primarily a technical challenge — it's a coordination challenge. The code was solvable. The hard part was building enough trust with a client 4 time zones away that they felt confident we were on top of things, even when things went wrong. That trust is what made the +$1K bonus possible — not because we were perfect, but because we were transparent and kept delivering.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="cs-footer">
+  <div class="wrap">
+    <div class="fu">
+      <div class="cs-title" style="font-size:clamp(3rem,4vw,4.8rem);margin-bottom:1.6rem">Want to talk<br/><em>product?</em></div>
+      <p class="cs-sub" style="margin-bottom:4rem;font-size:1.7rem">I'm available for PM and product roles. Always happy to dig into a hard problem.</p>
+      <a href="index.html#contact" class="btn-acc">Get in Touch <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="index.html#projects" class="btn-out">View All Projects</a>
+    </div>
+  </div>
+</div>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// Cursor
+const dot = document.getElementById('cur-dot');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;
+  gsap.to(dot,{x:mx,y:my,duration:.08,ease:'none'})});
+function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  gsap.set(ring,{x:rx,y:ry});requestAnimationFrame(animRing)}
+animRing();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+// Scroll progress (reading bar on left side)
+window.addEventListener('scroll',()=>{
+  const scrolled=window.scrollY;
+  const total=document.body.scrollHeight-window.innerHeight;
+  const pct=(scrolled/total)*100;
+  document.getElementById('readingBar').style.height=pct+'%';
+});
+
+// Fade-up on scroll
+gsap.utils.toArray('.fu').forEach(el=>{
+  gsap.to(el,{
+    opacity:1,y:0,duration:.7,ease:'power2.out',
+    scrollTrigger:{trigger:el,start:'top 88%',once:true}
+  });
+});
+</script>
+</body>
+</html>
